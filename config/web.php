@@ -15,7 +15,7 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => 'app\models\Users',
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
@@ -38,6 +38,27 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
+
+        'urlManager'=>[
+            'enablePrettyUrl'=>'true',
+            'showScriptName'=>false,
+
+        ],
+
+        'security' => [
+            'passwordHashStrategy' => 'password_hash'
+        ],
+
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            'dateFormat' => 'php:d-m-Y',
+            'datetimeFormat' => 'php:d-m-Y H:i',
+            'timeFormat' => 'php:H:i',
+            'defaultTimeZone' => 'Europe/Moscow',
+            'locale' => 'uk-UA'
+        ],
+
+
     ],
     'params' => $params,
 ];

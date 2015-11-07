@@ -27,26 +27,53 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'My Company',
+        'brandLabel' => 'Аренда залов',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
+
+    $menuItem = [
+
+        ['label' => '<span class="glyphicon glyphicon-home" aria-hidden="true"></span> Главная', 'url' => ['/site/index'], 'encode' => false,],
+
+    ];
+
+
+    if (Yii::$app->user->isGuest):
+        $menuItem[] =  ['label' => 'Регистрация', 'url' => ['/users/index']];
+        $menuItem[] = ['label' => 'Войти', 'url' => ['/site/login']];
+
+    else:
+        $menuItem[] =
+            ['label' => ' <span class="glyphicon glyphicon-book" aria-hidden="true"></span> Справочники','encode' => false,
+                'items' => [
+                    ['label' => '<span class="glyphicon glyphicon-book" aria-hidden="true"></span> Залы', 'url' => ['/zal/index'],'encode' => false,],
+                    ['label' => '<span class="glyphicon glyphicon-user" aria-hidden="true"></span> Оборудование', 'url' => ['/oborud/index'],'encode' => false,],
+                    ['label' => '<span class="glyphicon glyphicon-road" aria-hidden="true"></span> Клиенты', 'url' => ['/client/index'],'encode' => false,],
+                    ['label' => '<span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span> Пользователи', 'url' => ['/users/index'],'encode' => false,],
+                    ['label' => '<span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span> Аренда', 'url' => ['/event/index'],'encode' => false,],
+
+                ],
+            ];
+
+        $menuItem[] = [
+            'label' => 'Выйти (' . Yii::$app->user->identity->username . ')',
+            'url' => ['/site/logout'],
+            'linkOptions' => ['data-method' => 'post']
+        ];
+    endif;
+
+
+
+
+
+
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest ?
-                ['label' => 'Login', 'url' => ['/site/login']] :
-                [
-                    'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-                    'url' => ['/site/logout'],
-                    'linkOptions' => ['data-method' => 'post']
-                ],
-        ],
+        'items' => $menuItem,
     ]);
     NavBar::end();
     ?>
@@ -61,9 +88,8 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="pull-left">&copy; Аренда <?= date('Y') ?></p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>
 
