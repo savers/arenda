@@ -15,19 +15,9 @@ use yii\filters\VerbFilter;
 /**
  * EventController implements the CRUD actions for Event model.
  */
-class EventController extends Controller
+class EventController extends BehaviorsController
 {
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
-                ],
-            ],
-        ];
-    }
+
 
     /**
      * Lists all Event models.
