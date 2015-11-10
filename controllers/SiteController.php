@@ -4,10 +4,13 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\EventSearch;
+
 
 class SiteController extends BehaviorsController
 {
@@ -26,10 +29,34 @@ class SiteController extends BehaviorsController
         ];
     }
 
+
+
+
     public function actionIndex()
     {
-        return $this->render('index');
+
+        $today = new \DateTime();
+        $today = $today->getTimestamp();
+        $today = date('Y-m-d', $today);
+
+
+
+        $searchModel = new EventSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$today);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+
+        ]);
+
+
+
     }
+
+
+
+
 
     public function actionLogin()
     {

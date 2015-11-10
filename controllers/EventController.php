@@ -35,8 +35,9 @@ class EventController extends Controller
      */
     public function actionIndex()
     {
+        $today ='';
         $searchModel = new EventSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $today);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -111,6 +112,32 @@ class EventController extends Controller
 
         return $this->redirect(['index']);
     }
+
+
+
+    public function actionOtchet()
+    {
+        $this->layout = false;
+
+        $poisk1 = Yii::$app->request->post('from_date');
+        $poisk2 = Yii::$app->request->post('to_date');
+
+
+        return $this->render('otchet', [
+                'model'=> Event::find()->where(['between', 'date_event', $poisk1, $poisk2])
+                    ->orderBy('date_event, time_event')
+                    ->all(),
+
+            'poisk1' =>$poisk1,
+            'poisk2' =>$poisk2,
+        ] );
+
+
+    }
+
+
+
+
 
     /**
      * Finds the Event model based on its primary key value.

@@ -6,6 +6,8 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'sourceLanguage' => 'ru-RU',
+    'language' => 'ru-RU',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -55,12 +57,22 @@ $config = [
             'datetimeFormat' => 'php:d-m-Y H:i',
             'timeFormat' => 'php:H:i',
             'defaultTimeZone' => 'Europe/Moscow',
-            'locale' => 'uk-UA'
+            'locale' => 'ru-RU'
         ],
 
 
     ],
     'params' => $params,
+    'modules' => [
+        'gridview' =>  [
+            'class' => '\kartik\grid\Module'
+            // enter optional module parameters below - only if you need to
+            // use your own export download action or custom translation
+            // message source
+            // 'downloadAction' => 'gridview/export/download',
+            //'i18n' => []
+        ]
+    ]
 ];
 
 if (YII_ENV_DEV) {

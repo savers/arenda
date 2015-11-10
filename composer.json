@@ -20,7 +20,9 @@
         "yiisoft/yii2-swiftmailer": "*",
         "kartik-v/yii2-grid": "@dev",
         "kartik-v/yii2-widget-timepicker": "*",
-        "kartik-v/yii2-widgets": "*"
+        "kartik-v/yii2-widgets": "*",
+        "kartik-v/yii2-mpdf": "@dev",
+        "kartik-v/yii2-field-range": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

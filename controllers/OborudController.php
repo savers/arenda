@@ -96,6 +96,36 @@ class OborudController extends BehaviorsController
         return $this->redirect(['index']);
     }
 
+
+    public function actionLists($id)
+    {
+
+
+        $countPosts = Oborud::find()
+            ->where(['id_zal' => $id])
+            ->count();
+
+        $posts = Oborud::find()
+            ->where(['id_zal' => $id])
+            ->orderBy('id DESC')
+            ->all();
+
+        if($countPosts>0){
+            foreach($posts as $post){
+                echo "<option value='".$post->name_oborud."'>".$post->name_oborud."</option>";
+
+            }
+
+        }
+        else{
+            echo "<option>-</option>";
+        }
+
+    }
+
+
+
+
     /**
      * Finds the Oborud model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

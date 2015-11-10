@@ -39,12 +39,16 @@ class EventSearch extends Event
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params,$today)
     {
+
+
+
         $query = Event::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> ['defaultOrder' => ['date_event'=>SORT_DESC,'time_event'=>SORT_ASC]]
         ]);
 
         $this->load($params);
@@ -72,7 +76,10 @@ class EventSearch extends Event
             ->andFilterWhere(['like', 'time_event', $this->time_event])
             ->andFilterWhere(['like', 'kofebrayk', $this->kofebrayk])
             ->andFilterWhere(['like', 'furshet', $this->furshet])
-            ->andFilterWhere(['like', 'dopinfo', $this->dopinfo]);
+            ->andFilterWhere(['like', 'dopinfo', $this->dopinfo])
+            ->andFilterWhere(['like', 'date_event', $today])
+        ;
+
 
         return $dataProvider;
     }

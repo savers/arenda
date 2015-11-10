@@ -26,10 +26,24 @@ use yii\widgets\DetailView;
         'model' => $model,
         'attributes' => [
             'id',
-            'id_zal',
-            'id_client',
-            'id_users',
-            'id_users1',
+            [
+                'attribute'=>'id_zal',
+                'value' => $model->idZal->name_zal,
+            ],
+            [
+                'attribute'=>'id_client',
+                'value' => $model->idClient->name_client,
+            ],
+            [
+                'attribute'=>'id_users',
+                'value' => $model->idUsers->username,
+            ],
+
+            [
+                'attribute'=>'id_users1',
+                'value' => $model->idUsers1->username,
+            ],
+
             'date_event',
             'name_event',
             'oborud',
@@ -37,8 +51,6 @@ use yii\widgets\DetailView;
             'kofebrayk',
             'furshet',
             'status',
-            'updated_at',
-            'created_at',
             'dopinfo',
         ],
     ]) ?>

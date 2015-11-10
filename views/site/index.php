@@ -1,53 +1,138 @@
 <?php
 
+use yii\helpers\Html;
+use kartik\grid\GridView;
+use yii\helpers\ArrayHelper;
+use yii\widgets\ActiveForm;
+use kartik\widgets\DatePicker;
+
 /* @var $this yii\web\View */
+/* @var $searchModel app\models\EventSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'My Yii Application';
 ?>
-<div class="site-index">
+<div class="event-index">
 
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
+    <h1><?= Html::encode($this->title) ?></h1>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
+    <?php    $form = ActiveForm::begin([
+        'action' => '/event/otchet',
+        'options'=>['target'=>'_blank'],
+    ]);
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
+    echo DatePicker::widget([
+        'name' => 'from_date',
+        'type' => DatePicker::TYPE_RANGE,
+        'name2' => 'to_date',
+        'pluginOptions' => [
+            'autoclose'=>true,
+            'format' => 'yyyy-mm-dd'
+        ]
+    ]);
 
-    <div class="body-content">
+    echo '<br>';
 
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+    echo Html::submitButton('Создать отчет', ['class' => 'btn btn-primary']);
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+    ActiveForm::end();
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+    ?>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+    <br><br>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
-        </div>
 
-    </div>
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+
+        'rowOptions' => function ($model, $key, $index, $grid)
+        {
+            if($model->updated_at !== $model->created_at) {
+                return ['style' => 'background-color:#8ECEE7;'];
+            }
+        },
+
+
+        'columns' => [
+
+
+            [
+                'attribute'=>'date_event',
+                'label' => 'Дата',
+                'format' => 'date',
+
+            ],
+
+
+            [
+                'attribute'=>'date_ned',
+                'label'=>'День недели',
+                'value'=> function($data)
+                {
+                    return  Yii::$app->formatter->asDate($data->date_event, 'EEEE');
+                }
+            ],
+
+            'name_event',
+            'oborud',
+
+
+
+            [
+                'attribute'=>'id_zal',
+                'filter'=>ArrayHelper::map(\app\models\Zal::find()->orderBy('name_zal')->asArray()->all(), 'id', 'name_zal'),
+                'label'=>'Зал',
+
+                'value'=> function($data)
+                {
+                    return $data->idZal->name_zal;
+                }
+            ],
+            'time_event',
+            'kofebrayk',
+            'furshet',
+
+            [
+                'attribute'=>'id_client',
+                'filter'=>ArrayHelper::map(\app\models\Client::find()->orderBy('name_client')->asArray()->all(), 'id', 'name_client'),
+                'label'=>'Клиент',
+
+                'value'=> function($data)
+                {
+                    return $data->idClient->name_client;
+                }
+            ],
+
+            [
+                'attribute'=>'id_users',
+                'filter'=>ArrayHelper::map(\app\models\Users::find()->orderBy('username')->asArray()->all(), 'id', 'username'),
+                'label'=>'Регистратор',
+
+                'value'=> function($data)
+                {
+                    return $data->idUsers->username;
+                }
+            ],
+
+            [
+                'attribute'=>'id_users1',
+                'filter'=>ArrayHelper::map(\app\models\Users::find()->orderBy('username')->asArray()->all(), 'id', 'username'),
+                'label'=>'Ответственный',
+
+                'value'=> function($data)
+                {
+                    return $data->idUsers1->username;
+                }
+            ],
+            'dopinfo',
+
+
+
+
+        ],
+    ]); ?>
+
 </div>

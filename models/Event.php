@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "event".
@@ -37,7 +38,8 @@ class Event extends \yii\db\ActiveRecord
 
     public $time_n;
     public $time_c;
-
+    public $oborud1;
+    public $date_ned;
 
     public static function tableName()
     {
@@ -50,10 +52,10 @@ class Event extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_zal', 'id_client', 'id_users1', 'date_event', 'name_event', 'oborud','time_n','time_c'], 'required'],
+            [['id_zal', 'id_client', 'id_users1', 'date_event', 'name_event', 'oborud1','time_n','time_c'], 'required'],
             [['id_zal', 'id_client', 'id_users', 'id_users1', 'status', 'updated_at', 'created_at'], 'integer'],
             [['date_event'], 'safe'],
-            [['name_event', 'oborud', 'time_event', 'kofebrayk', 'furshet', 'dopinfo', 'time_n', 'time_c'] , 'string', 'max' => 255]
+            [['name_event', 'time_event', 'kofebrayk', 'furshet', 'dopinfo', 'time_n', 'time_c'] , 'string', 'max' => 255]
         ];
     }
 
@@ -71,7 +73,7 @@ class Event extends \yii\db\ActiveRecord
             'date_event' => 'Дата мероприятия',
             'name_event' => 'Наименование мероприятия',
             'oborud' => 'Оборудование',
-            'time_event' => 'Время',
+            'time_event' => 'Время проведения',
             'kofebrayk' => 'Кофебрейк',
             'furshet' => 'Фуршет',
             'status' => 'Статус',
@@ -80,6 +82,7 @@ class Event extends \yii\db\ActiveRecord
             'dopinfo' => 'Информация',
             'time_n' => 'Время начала мероприятия',
             'time_c' => 'Время завершения мероприятия',
+            'oborud1' => 'Оборудование',
         ];
     }
 
@@ -102,12 +105,26 @@ class Event extends \yii\db\ActiveRecord
                 $this->status = 1;
                 $this->time_event = $this->time_n.' - '.$this->time_c;
 
+                $this->oborud ='';
+
+                foreach ($this->oborud1 as $naz)
+                {
+                    $this->oborud.=$naz.", ";
+                }
+
+
+
             }
             else
             {
                 $this->id_users = Yii::$app->user->id;
                 $this->status = 2;
                 $this->time_event = $this->time_n.' - '.$this->time_c;
+                $this->oborud ='';
+                foreach ($this->oborud1 as $naz)
+                {
+                    $this->oborud.=$naz.", ";
+                }
 
 
             }

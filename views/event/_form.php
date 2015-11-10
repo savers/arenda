@@ -19,10 +19,27 @@ use kartik\date\DatePicker;
 
     <?= $form->field($model, 'id_zal')->dropDownList(
         ArrayHelper::map($zal, 'id', 'name_zal'),
-        ['prompt'=>'Выберите зал']
-    ) ?>
+        [   'prompt'=>'Выберите зал',
+            'onchange'=>'
+                $.post( "'.Yii::$app->urlManager->createUrl('oborud/lists?id=').'"+$(this).val(), function( data ) {
+                  $( "select#event-oborud1" ).html( data );
+                });
+            ']);
+    ?>
 
-    <?= $form->field($model, 'oborud')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'oborud1')->widget(Select2::className(),
+        [   'options' => ['placeholder' => 'Выберите оборудование...', 'multiple' => true],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]
+
+    );
+
+    ?>
+
+
+
 
 
     <?= $form->field($model, 'id_client')->dropDownList(
