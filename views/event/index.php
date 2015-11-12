@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\helpers\ArrayHelper;
+use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\EventSearch */
@@ -38,6 +39,17 @@ use yii\helpers\ArrayHelper;
                 'attribute'=>'date_event',
                 'label' => 'Дата',
                 'format' => 'date',
+                'filter' => DatePicker::widget(
+                    [
+                        'model' => $searchModel,
+                        'attribute' => 'date_event',
+                        'options' => ['placeholder' => 'Выберите дату ...'],
+                        'language' => 'ru-RU',
+                        'pluginOptions' => [
+                            'autoclose' => true,
+                            'format' => 'yyyy-mm-dd',
+                        ]
+                    ])
 
             ],
 
