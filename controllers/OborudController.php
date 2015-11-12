@@ -107,7 +107,7 @@ class OborudController extends BehaviorsController
 
         $posts = Oborud::find()
             ->where(['id_zal' => $id])
-            ->orderBy('id DESC')
+            ->orderBy('name_oborud')
             ->all();
 
         if($countPosts>0){

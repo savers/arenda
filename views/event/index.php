@@ -32,6 +32,7 @@ use yii\helpers\ArrayHelper;
 
         'columns' => [
 
+            ['class' => 'yii\grid\ActionColumn'],
 
             [
                 'attribute'=>'date_event',
@@ -114,7 +115,7 @@ use yii\helpers\ArrayHelper;
             // 'created_at',
             // 'dopinfo',
 
-            ['class' => 'yii\grid\ActionColumn'],
+
         ],
     ]); ?>
 

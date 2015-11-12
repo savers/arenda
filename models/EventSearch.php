@@ -51,6 +51,8 @@ class EventSearch extends Event
             'sort'=> ['defaultOrder' => ['date_event'=>SORT_DESC,'time_event'=>SORT_ASC]]
         ]);
 
+        $dataProvider->pagination->pageSize=10;
+
         $this->load($params);
 
         if (!$this->validate()) {

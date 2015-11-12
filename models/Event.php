@@ -55,7 +55,9 @@ class Event extends \yii\db\ActiveRecord
             [['id_zal', 'id_client', 'id_users1', 'date_event', 'name_event', 'oborud1','time_n','time_c'], 'required'],
             [['id_zal', 'id_client', 'id_users', 'id_users1', 'status', 'updated_at', 'created_at'], 'integer'],
             [['date_event'], 'safe'],
-            [['name_event', 'time_event', 'kofebrayk', 'furshet', 'dopinfo', 'time_n', 'time_c'] , 'string', 'max' => 255]
+            [['name_event', 'time_event', 'kofebrayk', 'furshet', 'dopinfo', 'time_n', 'time_c'] , 'string', 'max' => 255],
+            ['time_n', 'validateTime'],
+            ['time_c', 'validateTime1'],
         ];
     }
 
@@ -79,12 +81,62 @@ class Event extends \yii\db\ActiveRecord
             'status' => 'Статус',
             'updated_at' => 'Updated At',
             'created_at' => 'Created At',
-            'dopinfo' => 'Информация',
+            'dopinfo' => 'Дополнительная Информация',
             'time_n' => 'Время начала мероприятия',
             'time_c' => 'Время завершения мероприятия',
             'oborud1' => 'Оборудование',
         ];
     }
+
+
+    public function validateTime($attribute)
+    {
+        if (!$this->hasErrors())
+        {
+            $timeprov =  Event::find()->where(['date_event' => $this->date_event, 'id_zal' =>$this->id_zal])->all();
+
+            foreach ($timeprov as  $timeprovdet) {
+
+            $t = explode(' - ', $timeprovdet->time_event);
+
+
+             if ($this->time_n > $t[0] and $this->time_n < $t[1]){
+
+                  $this->addError($attribute, 'В это время зал занят');
+
+             }
+
+            }
+
+        }
+
+    }
+
+
+    public function validateTime1($attribute)
+    {
+        if (!$this->hasErrors())
+        {
+            $timeprov =  Event::find()->where(['date_event' => $this->date_event, 'id_zal' =>$this->id_zal])->all();
+
+            foreach ($timeprov as  $timeprovdet) {
+
+                $t = explode(' - ', $timeprovdet->time_event);
+
+
+                if ($this->time_c > $t[0] and $this->time_c < $t[1]){
+
+                    $this->addError($attribute, 'В это время зал занят');
+
+                }
+
+            }
+
+        }
+
+    }
+
+
 
 
     public function behaviors()
