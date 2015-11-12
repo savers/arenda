@@ -100,7 +100,7 @@ class Event extends \yii\db\ActiveRecord
             $t = explode(' - ', $timeprovdet->time_event);
 
 
-             if ($this->time_n > $t[0] and $this->time_n < $t[1]){
+             if ($this->time_n >= $t[0] and $this->time_n <= $t[1]){
 
                   $this->addError($attribute, 'В это время зал занят');
 
@@ -124,7 +124,7 @@ class Event extends \yii\db\ActiveRecord
                 $t = explode(' - ', $timeprovdet->time_event);
 
 
-                if ($this->time_c > $t[0] and $this->time_c < $t[1]){
+                if ($this->time_c >= $t[0] and $this->time_c <= $t[1]){
 
                     $this->addError($attribute, 'В это время зал занят');
 
