@@ -56,10 +56,15 @@ class Event extends \yii\db\ActiveRecord
             [['id_zal', 'id_client', 'id_users', 'id_users1', 'status', 'updated_at', 'created_at'], 'integer'],
             [['date_event'], 'safe'],
             [['name_event', 'time_event', 'kofebrayk', 'furshet', 'dopinfo', 'time_n', 'time_c'] , 'string', 'max' => 255],
-            ['time_n', 'validateTime'],
-            ['time_c', 'validateTime1'],
+            ['time_n','validateTime'],
+            ['time_n','validateTime1'],
+
         ];
     }
+
+
+
+
 
     /**
      * @inheritdoc
@@ -93,20 +98,33 @@ class Event extends \yii\db\ActiveRecord
     {
         if (!$this->hasErrors())
         {
-            $timeprov =  Event::find()->where(['date_event' => $this->date_event, 'id_zal' =>$this->id_zal])->all();
 
-            foreach ($timeprov as  $timeprovdet) {
+            if ($this->isNewRecord) {
 
-            $t = explode(' - ', $timeprovdet->time_event);
-
-
-             if ($this->time_n >= $t[0] and $this->time_n <= $t[1]){
-
-                  $this->addError($attribute, 'В это время зал занят');
-
-             }
+                $timeprov = Event::find()->where(['date_event' => $this->date_event, 'id_zal' => $this->id_zal])->all();
 
             }
+            else
+            {
+                $timeprov = Event::find()->where(['date_event' => $this->date_event, 'id_zal' => $this->id_zal])
+                    ->andWhere(['!=', 'id', $this->id])
+                    ->all();
+            }
+
+
+                foreach ($timeprov as $timeprovdet) {
+
+                    $t = explode(' - ', $timeprovdet->time_event);
+
+
+                    if ($this->time_n >= $t[0] and $this->time_n <= $t[1]) {
+
+                        $this->addError($attribute, 'В это время зал занят');
+
+                    }
+
+                }
+
 
         }
 
@@ -117,19 +135,21 @@ class Event extends \yii\db\ActiveRecord
     {
         if (!$this->hasErrors())
         {
-            $timeprov =  Event::find()->where(['date_event' => $this->date_event, 'id_zal' =>$this->id_zal])->all();
+            if ($this->isNewRecord) {
+                $timeprov = Event::find()->where(['date_event' => $this->date_event, 'id_zal' => $this->id_zal])->all();
 
-            foreach ($timeprov as  $timeprovdet) {
+                foreach ($timeprov as $timeprovdet) {
 
-                $t = explode(' - ', $timeprovdet->time_event);
+                    $t = explode(' - ', $timeprovdet->time_event);
 
 
-                if ($this->time_c >= $t[0] and $this->time_c <= $t[1]){
+                    if ($this->time_c >= $t[0] and $this->time_c <= $t[1]) {
 
-                    $this->addError($attribute, 'В это время зал занят');
+                        $this->addError($attribute, 'В это время зал занят');
+
+                    }
 
                 }
-
             }
 
         }
