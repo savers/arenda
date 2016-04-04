@@ -38,12 +38,12 @@ class Users extends \yii\db\ActiveRecord implements IdentityInterface
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
-            if ($this->isNewRecord) {
+
 
 
                 $this->password = Yii::$app->security->generatePasswordHash($this->password);
                 $this->auth_key = \Yii::$app->security->generateRandomString();
-            }
+
             return true;
         }
         return false;
