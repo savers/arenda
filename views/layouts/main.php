@@ -8,6 +8,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use app\models\Users;
 
 AppAsset::register($this);
 ?>
@@ -46,17 +47,25 @@ AppAsset::register($this);
         $menuItem[] = ['label' => 'Войти', 'url' => ['/site/login']];
 
     else:
-        $menuItem[] =
-            ['label' => ' <span class="glyphicon glyphicon-book" aria-hidden="true"></span> Справочники','encode' => false,
-                'items' => [
-                    ['label' => '<span class="glyphicon glyphicon-book" aria-hidden="true"></span> Залы', 'url' => ['/zal/index'],'encode' => false,],
-                    ['label' => '<span class="glyphicon glyphicon-user" aria-hidden="true"></span> Оборудование', 'url' => ['/oborud/index'],'encode' => false,],
-                    ['label' => '<span class="glyphicon glyphicon-road" aria-hidden="true"></span> Клиенты', 'url' => ['/client/index'],'encode' => false,],
-                    ['label' => '<span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span> Пользователи', 'url' => ['/users/index'],'encode' => false,],
-                    ['label' => '<span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span> Аренда', 'url' => ['/event/index'],'encode' => false,],
 
-                ],
-            ];
+
+
+        if (Users::isUserAdmin(Yii::$app->user->identity->login)) {
+            $menuItem[] =
+                ['label' => ' <span class="glyphicon glyphicon-book" aria-hidden="true"></span> Справочники', 'encode' => false,
+                    'items' => [
+                        ['label' => '<span class="glyphicon glyphicon-book" aria-hidden="true"></span> Залы', 'url' => ['/zal/index'], 'encode' => false,],
+                        ['label' => '<span class="glyphicon glyphicon-user" aria-hidden="true"></span> Оборудование', 'url' => ['/oborud/index'], 'encode' => false,],
+                        ['label' => '<span class="glyphicon glyphicon-road" aria-hidden="true"></span> Клиенты', 'url' => ['/client/index'], 'encode' => false,],
+                        ['label' => '<span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span> Пользователи', 'url' => ['/users/index'], 'encode' => false,],
+                        ['label' => '<span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span> Аренда', 'url' => ['/event/index'], 'encode' => false,],
+
+                    ],
+                ];
+        }
+
+
+
 
         $menuItem[] = [
             'label' => 'Выйти (' . Yii::$app->user->identity->username . ')',

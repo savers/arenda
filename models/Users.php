@@ -15,6 +15,11 @@ use yii\web\IdentityInterface;
  */
 class Users extends \yii\db\ActiveRecord implements IdentityInterface
 {
+
+    const ROLE_ADMIN = 20;
+    const STATUS_ACTIVE = 10;
+
+
     /**
      * @inheritdoc
      */
@@ -30,7 +35,8 @@ class Users extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return [
             [['login', 'password','username','status'], 'required'],
-            [['login', 'password','username'], 'string', 'max' => 255]
+            [['login', 'password','username'], 'string', 'max' => 255],
+            ['role', 'in', 'range' => [self::STATUS_ACTIVE, self::ROLE_ADMIN]],
         ];
     }
 
@@ -78,7 +84,7 @@ class Users extends \yii\db\ActiveRecord implements IdentityInterface
     }
 
 
-
+/*
     public static function findIdentity($id)
     {
         return static::findOne([
@@ -86,6 +92,35 @@ class Users extends \yii\db\ActiveRecord implements IdentityInterface
 
        ] );
     }
+*/
+
+    public static function findIdentity($id)
+    {
+        return static::findOne(['id' => $id, 'role' => [self::STATUS_ACTIVE, self::ROLE_ADMIN]]);
+
+    }
+
+
+
+    public static function findByUsername($username)
+    {
+        return static::findOne(['login' => $username, 'role' => [self::STATUS_ACTIVE, self::ROLE_ADMIN]]);
+    }
+
+
+    public static function isUserAdmin($username)
+    {
+        if (static::findOne(['login' => $username, 'role' => self::ROLE_ADMIN]))
+        {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+
+
 
     public static function findIdentityByAccessToken($token, $type = null)
     {

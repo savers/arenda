@@ -8,12 +8,41 @@ use app\models\ZalSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use app\models\Users;
 
 /**
  * ZalController implements the CRUD actions for Zal model.
  */
-class ZalController extends BehaviorsController
+class ZalController extends Controller
 {
+
+
+    public function behaviors()
+    {
+
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'create','delete','update'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'create','delete','update'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return Users::isUserAdmin(Yii::$app->user->identity->login);
+                        }
+                    ],
+                ],
+            ],
+
+        ];
+
+
+
+    }
+
 
 
     /**

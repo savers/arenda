@@ -11,12 +11,42 @@ use app\models\EventSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * EventController implements the CRUD actions for Event model.
  */
-class EventController extends BehaviorsController
+class EventController extends Controller
 {
+
+
+    public function behaviors()
+    {
+
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'create','delete','update'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'create','delete','update'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return Users::isUserAdmin(Yii::$app->user->identity->login);
+                        }
+                    ],
+                ],
+            ],
+
+        ];
+
+
+
+    }
+
+
+
 
 
     /**

@@ -8,11 +8,12 @@ use app\models\UsersSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * UsersController implements the CRUD actions for Users model.
  */
-class UsersController extends BehaviorsController
+class UsersController extends Controller
 {
  /*   public function behaviors()
     {
@@ -32,6 +33,36 @@ class UsersController extends BehaviorsController
      * Lists all Users models.
      * @return mixed
      */
+
+    public function behaviors()
+    {
+
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'create','delete','update'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'create','delete','update'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return Users::isUserAdmin(Yii::$app->user->identity->login);
+                        }
+                    ],
+                ],
+            ],
+
+        ];
+
+
+
+    }
+
+
+
+
+
     public function actionIndex()
     {
         $searchModel = new UsersSearch();

@@ -8,12 +8,44 @@ use app\models\ClientSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use app\models\Users;
 
 /**
  * ClientController implements the CRUD actions for Client model.
  */
-class ClientController extends BehaviorsController
+class ClientController extends Controller
 {
+
+
+
+    public function behaviors()
+    {
+
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'create','delete','update'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'create','delete','update'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return Users::isUserAdmin(Yii::$app->user->identity->login);
+                        }
+                    ],
+                ],
+            ],
+
+        ];
+
+
+
+    }
+
+
+
 
 
     /**
