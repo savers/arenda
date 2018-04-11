@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\helpers\ArrayHelper;
 use kartik\date\DatePicker;
+use app\models\Users;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\EventSearch */
@@ -16,7 +17,21 @@ use kartik\date\DatePicker;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Добавить аренду', ['create'], ['class' => 'btn btn-success']) ?>
+
+  <?php
+  if (Users::isUserAdmin(Yii::$app->user->identity->login)) {
+
+      ?>
+
+      <?= Html::a('Добавить аренду', ['create'], ['class' => 'btn btn-success']) ?>
+
+      <?php
+
+  }
+  ?>
+
+
+
     </p>
 
     <?= GridView::widget([
@@ -33,7 +48,11 @@ use kartik\date\DatePicker;
 
         'columns' => [
 
+
             ['class' => 'yii\grid\ActionColumn'],
+
+
+
 
             [
                 'attribute'=>'date_event',

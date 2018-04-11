@@ -12,6 +12,9 @@ use app\models\Users;
 
 ?>
 
+
+
+
 <h3 align="center">Расписание работы конференц-центра ILF-Communication в диапазоне с <?= $poisk1 ?> по <?= $poisk2 ?> </h3>
 
 

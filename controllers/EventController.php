@@ -29,7 +29,13 @@ class EventController extends Controller
                 'only' => ['index', 'view', 'create','delete','update'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'create','delete','update'],
+                        'actions' => ['index'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+
+                    [
+                        'actions' => ['view', 'create','delete','update'],
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function ($rule, $action) {
