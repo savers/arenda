@@ -21,7 +21,7 @@ if($tim1)
 if($oborud)
 {
 
-    $model->oborud = $oborud;
+    $model->oborud1 = $oborud;
 
 }
 
