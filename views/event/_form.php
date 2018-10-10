@@ -35,6 +35,8 @@ if($tim1)
             ']);
     ?>
 
+    <h1><?=$model->oborud1?></h1>
+
     <?= $form->field($model, 'oborud1')->widget(Select2::className(),
         [
             'initValueText'  => $model->oborud1,
