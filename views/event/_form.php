@@ -18,12 +18,6 @@ if($tim1)
     $model->time_c = $tim1[1];
 }
 
-if($oborud)
-{
-
-    $model->oborud1 = $oborud;
-
-}
 
 ?>
 
@@ -42,11 +36,11 @@ if($oborud)
             ']);
     ?>
 
-    <h1><?=$model->oborud1?></h1>
+    <h1><?=$oborud?></h1>
 
     <?= $form->field($model, 'oborud1')->widget(Select2::className(),
         [
-            'initValueText'  => $model->oborud1,
+            'initValueText'  => $oborud,
             'options' => ['placeholder' => 'Выберите оборудование...', 'multiple' => true],
             'pluginOptions' => [
                 'allowClear' => false
