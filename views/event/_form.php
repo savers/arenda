@@ -19,6 +19,19 @@ if($tim1)
 }
 
 
+if($oborud)
+{
+
+    $oborud1 = explode(",", $oborud);
+
+}
+else
+{
+    $oborud1 = [];
+
+}
+
+
 ?>
 
 <div class="event-form">
@@ -36,11 +49,10 @@ if($tim1)
             ']);
     ?>
 
-    <h1><?=$oborud?></h1>
 
     <?= $form->field($model, 'oborud1')->widget(Select2::className(),
         [
-            //'initValueText'  => $oborud,
+            'initValueText'  => $oborud1,
             'options' => ['placeholder' => 'Выберите оборудование...', 'multiple' => true],
             'pluginOptions' => [
                 'allowClear' => false
