@@ -18,6 +18,13 @@ if($tim1)
     $model->time_c = $tim1[1];
 }
 
+if($oborud)
+{
+
+    $model->oborud = $oborud;
+
+}
+
 ?>
 
 <div class="event-form">

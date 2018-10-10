@@ -18,6 +18,7 @@ use yii\helpers\Html;
         'client' => $client,
         'users' => $users,
         'tim1' => '',
+         'oborud' => '',
     ]) ?>
 
 </div>
