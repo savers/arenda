@@ -117,6 +117,12 @@ class EventController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+
+            $tim = $model->time_event;
+            $tim1 = explode("-", $tim);
+            $model->time_n = $tim1[0];
+            $model->time_c = $tim1[1];
+
             return $this->render('update', [
                 'model' => $model,
                 'zal'=> Zal::find()->asArray()->all(),
