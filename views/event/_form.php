@@ -37,7 +37,7 @@ if($tim1)
 
     <?= $form->field($model, 'oborud1')->widget(Select2::className(),
         [
-            'value' => $model->oborud1,
+            'initValueText'  => $model->oborud1,
             'options' => ['placeholder' => 'Выберите оборудование...', 'multiple' => true],
             'pluginOptions' => [
                 'allowClear' => false
