@@ -19,20 +19,6 @@ if($tim1)
 }
 
 
-if($oborud)
-{
-
-    $oborud1 = explode(",", $oborud);
-
-}
-else
-{
-    $oborud1 = [];
-
-}
-
-
-$data = [1=>'category 1', 2=>'category 2', 3=>'category 3'];
 
 
 ?>
@@ -55,9 +41,7 @@ $data = [1=>'category 1', 2=>'category 2', 3=>'category 3'];
 
     <?= $form->field($model, 'oborud1')->widget(Select2::className(),
         [
-            'name' => 'category',
-            'value' => 2, // value to initialize
-            'data' => $data,
+
             'options' => ['placeholder' => 'Выберите оборудование...', 'multiple' => true],
             'pluginOptions' => [
                 'allowClear' => false
