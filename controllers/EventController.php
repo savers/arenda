@@ -127,6 +127,7 @@ class EventController extends Controller
                 'zal'=> Zal::find()->asArray()->all(),
                 'client'=> Client::find()->asArray()->orderBy('name_client')->all(),
                 'users'=> Users::find()->asArray()->where(['status' => 10])->orderBy('username')->all(),
+                'tim1' => $tim1,
             ]);
         }
     }

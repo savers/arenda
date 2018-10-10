@@ -10,6 +10,14 @@ use kartik\date\DatePicker;
 /* @var $this yii\web\View */
 /* @var $model app\models\Event */
 /* @var $form yii\widgets\ActiveForm */
+
+if($tim1)
+{
+
+    $model->time_n = $tim1[0];
+    $model->time_c = $tim1[1];
+}
+
 ?>
 
 <div class="event-form">

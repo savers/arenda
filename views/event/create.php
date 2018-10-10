@@ -17,6 +17,7 @@ use yii\helpers\Html;
         'zal' => $zal,
         'client' => $client,
         'users' => $users,
+        'tim1' => '',
     ]) ?>
 
 </div>
