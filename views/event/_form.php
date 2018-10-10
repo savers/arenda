@@ -32,6 +32,9 @@ else
 }
 
 
+$data = [1=>'category 1', 2=>'category 2', 3=>'category 3'];
+
+
 ?>
 
 <div class="event-form">
@@ -52,8 +55,9 @@ else
 
     <?= $form->field($model, 'oborud1')->widget(Select2::className(),
         [
-            'initValueText' => 11,
-            'value' => 11,
+            'name' => 'category',
+            'value' => 2, // value to initialize
+            'data' => $data,
             'options' => ['placeholder' => 'Выберите оборудование...', 'multiple' => true],
             'pluginOptions' => [
                 'allowClear' => false
