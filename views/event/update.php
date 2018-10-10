@@ -15,7 +15,7 @@ use yii\helpers\Html;
         'zal' => $zal,
         'client' => $client,
         'users' => $users,
-        $model->oborud='',
+         //$model->oborud='',
         'tim1' => $tim1,
     ]) ?>
 
