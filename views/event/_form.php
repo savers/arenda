@@ -22,6 +22,7 @@ if($tim1)
 
 $data = Oborud::find(['id_zal' => $model->id_zal])->asArray()->all();
 
+var_dump($data);
 
 ?>
 
@@ -43,7 +44,7 @@ $data = Oborud::find(['id_zal' => $model->id_zal])->asArray()->all();
 
     <?= $form->field($model, 'oborud1')->widget(Select2::className(),
         [
-             'data' => $data,
+            'data' => $data,
             'options' => ['placeholder' => 'Выберите оборудование...', 'multiple' => true],
             'pluginOptions' => [
                 'allowClear' => false
