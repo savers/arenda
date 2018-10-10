@@ -52,7 +52,7 @@ else
 
     <?= $form->field($model, 'oborud1')->widget(Select2::className(),
         [
-            'initValueText'  => $oborud1,
+            'initValueText'  => [1 => 'rrrrrr'],
             'options' => ['placeholder' => 'Выберите оборудование...', 'multiple' => true],
             'pluginOptions' => [
                 'allowClear' => false
