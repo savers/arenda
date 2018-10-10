@@ -6,6 +6,7 @@ use yii\helpers\ArrayHelper;
 use kartik\time\TimePicker;
 use kartik\select2\Select2;
 use kartik\date\DatePicker;
+use app\models\Oborud;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Event */
@@ -19,6 +20,7 @@ if($tim1)
 }
 
 
+$data = Oborud::find(['id_zal' => $model->id_zal])->asArray()->all();
 
 
 ?>
@@ -41,7 +43,7 @@ if($tim1)
 
     <?= $form->field($model, 'oborud1')->widget(Select2::className(),
         [
-
+             'data' => $data,
             'options' => ['placeholder' => 'Выберите оборудование...', 'multiple' => true],
             'pluginOptions' => [
                 'allowClear' => false
