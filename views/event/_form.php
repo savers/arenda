@@ -29,7 +29,7 @@ if(isset($model->id_zal))
         '
 function zal(){
 
-                $.post( "'.Yii::$app->urlManager->createUrl('oborud/lists?id=').'"+"'.$model->id_zal.'", function( data ) {
+                $.post( "'.Yii::$app->urlManager->createUrl('oborud/listsupd?id=').'"+"'.$model->id_zal.'"+&idst="'.$model->oborud.'" , function( data ) {
                   $( "select#event-oborud1" ).html( data );
                 });
 }

@@ -154,7 +154,31 @@ class OborudController extends Controller
 
     }
 
+    public function actionListsupd($id, $idst)
+    {
 
+
+        $countPosts = Oborud::find()
+            ->where(['id_zal' => $id])
+            ->count();
+
+        $posts = Oborud::find()
+            ->where(['id_zal' => $id])
+            ->orderBy('name_oborud')
+            ->all();
+
+        if($countPosts>0){
+            foreach($posts as $post){
+                echo "<option value='".$post->name_oborud."'>".$post->name_oborud."</option>";
+
+            }
+
+        }
+        else{
+            echo "<option>-</option>";
+        }
+
+    }
 
 
     /**
