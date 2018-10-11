@@ -171,14 +171,8 @@ class OborudController extends Controller
 
         if($countPosts>0){
             foreach($posts as $post){
-                if($post->name_oborud == $obr[0])
-                {
-                    echo "<option selected value='".$post->name_oborud."'>".$post->name_oborud."</option>";
-                }
-                else
-                {
+
                     echo "<option value='".$post->name_oborud."'>".$post->name_oborud."</option>";
-                }
 
 
             }
