@@ -157,6 +157,8 @@ class OborudController extends Controller
     public function actionListsupd($id,$idst)
     {
 
+        $obr = explode(",", $idst);
+
 
         $countPosts = Oborud::find()
             ->where(['id_zal' => $id])
@@ -169,7 +171,15 @@ class OborudController extends Controller
 
         if($countPosts>0){
             foreach($posts as $post){
-                echo "<option value='".$post->name_oborud."'>".$post->name_oborud."</option>";
+                if($post->name_oborud == $obr[0])
+                {
+                    echo "<option selected value='".$post->name_oborud."'>".$post->name_oborud."</option>";
+                }
+                else
+                {
+                    echo "<option value='".$post->name_oborud."'>".$post->name_oborud."</option>";
+                }
+
 
             }
 
