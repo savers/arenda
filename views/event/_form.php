@@ -29,7 +29,7 @@ if(isset($model->id_zal))
         '
 function zal(){
                 
-                $.post("oborud/listsupd", { id: "'.$model->id_zal.'", idst: "'.$model->oborud.'" }, function( data ) {
+                $.post("/oborud/listsupd", { id: "'.$model->id_zal.'", idst: "'.$model->oborud.'" }, function( data ) {
 
                   $( "select#event-oborud1" ).html( data );
                 });
