@@ -93,7 +93,19 @@ class EventController extends Controller
         $model = new Event();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            Yii::$app->mailer->compose()
+                ->setFrom('admin@invite.kh.ua')
+                ->setTo('averss@gmail.com')
+                ->setSubject('Тема сообщения')
+                ->setTextBody('Текст сообщения')
+                ->setHtmlBody('<b>текст сообщения в формате HTML</b>')
+                ->send();
+            
+
             return $this->redirect(['view', 'id' => $model->id]);
+
+            
         } else {
             return $this->render('create', [
                 'model' => $model,
