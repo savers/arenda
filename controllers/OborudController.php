@@ -154,7 +154,7 @@ class OborudController extends Controller
 
     }
 
-    public function actionListsupd($id)
+    public function actionListsupd($id,$idst)
     {
 
 
