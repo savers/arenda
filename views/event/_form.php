@@ -20,7 +20,29 @@ if($tim1)
 }
 
 
-//$data = Oborud::find(['id_zal' => $model->id_zal])->asArray()->all();
+
+
+if(isset($model->id_zal))
+{
+
+    $this->registerJs(
+        '
+function zal(){
+
+                $.post( "'.Yii::$app->urlManager->createUrl('oborud/lists?id=').'"+"'.$model->id_zal.'", function( data ) {
+                  $( "select#event-oborud1" ).html( data );
+                });
+}
+
+document.addEventListener("DOMContentLoaded", zal);
+;',yii\web\View ::POS_END
+    );
+
+
+}
+
+
+
 
 
 ?>
